@@ -39,8 +39,7 @@ class App extends React.Component {
                 <div className="container text-center">
                     <div class="row mb-2">
                     <input className="btn btn-primary" type="submit" value="View Info" onClick={this.publicStateFunc}/>
-                    </div>
-                    
+                    </div>      
                     <div class="row text-left">
                         <div class="col-sm-4">                        
                         Network: <b>{publicState.account.address}</b><br/>
