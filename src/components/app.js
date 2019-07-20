@@ -5,48 +5,50 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {auth: null}
-        this.authFunc = this.authFunc.bind(this);
+        this.state = {publicState: null}
+        this.publicStateFunc = this.publicStateFunc.bind(this);
     }
     
-    authFunc() {
-        const authData = { data: "Auth on my site" };
+    publicStateFunc() {
+        const publicStateData = { data: "publicState on my site" };
         if (WavesKeeper) {
-            WavesKeeper.auth( authData )
-            .then(auth => {
-                console.log( auth ); //displaying the result on the console
-                this.setState({auth});
+            WavesKeeper.publicState( publicStateData )
+            .then(publicState => {
+                console.log( publicState ); //displaying the result on the console
+                this.setState({publicState});
                 /*...processing data */
             }).catch(error => {
                 console.error( error ); // displaying the result on the console
                 /*...processing errors */
             })
         } else {
-            alert("To Auth WavesKeeper should be installed.");
+            alert("Error: WavesKeeper should be installed.");
         }
     }
     
     render() {
-        const { auth } = this.state;
-        if ( auth === null )
+        const { publicState } = this.state;
+        if ( publicState === null )
             return (
                 <div className="container text-center">
-                    <input className="btn btn-primary" type="submit" value="Authenticate" onClick={this.authFunc}/>            
+                    <input className="btn btn-primary" type="submit" value="View Info" onClick={this.publicStateFunc}/>            
                 </div>
             )    
-        else
+        else            
             return (
                 <div className="container text-center">
                     <div class="row mb-2">
-                    <input className="btn btn-primary" type="submit" value="Authenticate" onClick={this.authFunc}/>
+                    <input className="btn btn-primary" type="submit" value="View Info" onClick={this.publicStateFunc}/>
                     </div>
                     
                     <div class="row text-left">
                         <div class="col-sm-4">                        
-                        Wallet: <b>{auth.address}</b>                        
+                        Network: <b>{publicState.account.address}</b><br/>
+                        Wallet: <b>{publicState.account.network}</b><br/>
+                        Balance: <b>{publicState.account.balance.available}</b><br/>                        
                         </div>
                     </div>
-                    
+                        
                 </div>
             )
     }
